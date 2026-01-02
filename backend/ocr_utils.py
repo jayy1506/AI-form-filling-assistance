@@ -196,23 +196,24 @@ def extract_name(text: str) -> str:
     """Extract name using pattern matching and NLP"""
     # Look for common name indicators in Indian documents
     patterns = [
-        r'name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'nama[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'full\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'father[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'mother[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'spouse[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'husband[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'wife[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'candidate[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'applicant[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'surname[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'given\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'first\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'last\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'holder\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'cardholder\s+name[:\s]+([A-Z][a-zA-Z\s.\-]+)',
-        r'holder[:\s]+([A-Z][a-zA-Z\s.\-]+)',
+        r'name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'nama[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'full\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'father[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'mother[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'spouse[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'husband[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'wife[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'candidate[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'applicant[\'\s]*s?\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'surname[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'given\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'first\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'last\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'holder\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'cardholder\s+name[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'holder[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
+        r'guardian[:\s]+([A-Z][a-zA-Z\s.\-\(\)]+)',
     ]
     
     for pattern in patterns:
@@ -228,10 +229,24 @@ def extract_name(text: str) -> str:
     # If pattern matching fails, try looking for sequences of words with capital letters
     # that might represent names
     # Look for capitalized words that could be names
-    potential_names = re.findall(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z.\-]*)+)\b', text)
+    potential_names = re.findall(r'\b([A-Z][a-z]+(?:\s+[A-Z][a-z.\-\(\)]*)+)\b', text)
     if potential_names:
         # Return the most likely name (longest or most structured)
         return max(potential_names, key=len).strip()
+    
+    # Look for capitalized words between 'name' and 'address' or other common fields
+    name_to_address_pattern = r'name[:\s]*([A-Z][a-zA-Z\s.\-\(\)]+?)(?:address|father|mother|dob|date|yob|year|gender|sex|age|ward|house|street|locality|city|state|pin|code|post|po|ps|district|village|taluka|tehsil|zone|circle|region|location|ward|building|house|door|flat|floor|apartment|residence|domicile|resident|citizen|id|number|no\.?|\d{4,}|\\n|\\r|\\t|\\v)'
+    name_to_address_matches = re.findall(name_to_address_pattern, text, re.IGNORECASE)
+    if name_to_address_matches:
+        # Return the longest match
+        return max(name_to_address_matches, key=len).strip()
+    
+    # Look for capitalized words between other common fields
+    address_to_name_pattern = r'(?:address|father|mother|dob|date|yob|year|gender|sex|age|ward|house|street|locality|city|state|pin|code|post|po|ps|district|village|taluka|tehsil|zone|circle|region|location|ward|building|house|door|flat|floor|apartment|residence|domicile|resident|citizen|id|number|no\.?|\d{4,}|\\n|\\r|\\t|\\v)[\s\S]*?([A-Z][a-zA-Z\s.\-\(\)]{10,})'
+    address_to_name_matches = re.findall(address_to_name_pattern, text, re.IGNORECASE)
+    if address_to_name_matches:
+        # Return the shortest match (most likely to be a name)
+        return min(address_to_name_matches, key=len).strip()
     
     # If pattern matching fails, try NLP approach
     if nlp:
@@ -351,54 +366,65 @@ def extract_address(text: str) -> str:
     """Extract address"""
     # Look for address indicators
     address_indicators = [
-        r'address[:\s]+([A-Za-z0-9\s,.\-]+?)(?:\n|$)',
-        r'permanent address[:\s]+([A-Za-z0-9\s,.-]+?)(?:\n|$)',
-        r'current address[:\s]+([A-Za-z0-9\s,.-]+?)(?:\n|$)',
-        r'residential address[:\s]+([A-Za-z0-9\s,.-]+?)(?:\n|$)',
-        r'addr[:\s]+([A-Za-z0-9\s,.-]+?)(?:\n|$)',
-        r'location[:\s]+([A-Za-z0-9\s,.-]+?)(?:\n|$)',
-        r'place[:\s]+([A-Za-z0-9\s,.-]+?)(?:\n|$)',
+        r'address[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
+        r'permanent address[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
+        r'current address[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
+        r'residential address[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
+        r'addr[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
+        r'location[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
+        r'place[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
     ]
     
     for pattern in address_indicators:
         matches = re.findall(pattern, text, re.IGNORECASE | re.DOTALL)
         if matches:
             # Return the longest address match
-            return max(matches, key=len).strip()
+            longest_match = max(matches, key=len)
+            # Clean up the match to remove extra whitespace
+            return re.sub(r'\s+', ' ', longest_match.strip())
     
     # Look for postal code patterns followed by addresses
     postal_patterns = [
-        r'(\d{6})[\s\n]+([A-Za-z\s,.-]+?)',  # 6-digit postal code followed by location
-        r'([A-Za-z\s,.-]+?)[\s\n]+(\d{6})',  # Location followed by 6-digit postal code
+        r'(\d{6})[\s\n]+([A-Za-z\s,.-\n\r]+?)',  # 6-digit postal code followed by location
+        r'([A-Za-z\s,.-\n\r]+?)[\s\n]+(\d{6})',  # Location followed by 6-digit postal code
     ]
     
     for pattern in postal_patterns:
-        matches = re.findall(pattern, text, re.IGNORECASE)
+        matches = re.findall(pattern, text, re.IGNORECASE | re.DOTALL)
         if matches:
             for match in matches:
                 if isinstance(match, tuple):
                     # Combine both parts if it's a tuple
                     combined = " ".join(match).strip()
                     if len(combined) > 10:  # Only return if it's a substantial address
-                        return combined
+                        return re.sub(r'\s+', ' ', combined)
                 else:
                     if len(match) > 10:
-                        return match
+                        return re.sub(r'\s+', ' ', match.strip())
+    
+    # Look for complete address blocks that span multiple lines
+    # Usually addresses have multiple components like house no, street, city, state, pin code
+    multi_line_address_pattern = r'([A-Za-z0-9\s,.-\n\r]{30,}?)(?:\n\s*\n|DOB|Date|Gender|Age|Name|Father|Mother|Wife|Husband|Income|Annual|Signature|\d{12}|[A-Z]{3}[0-9]{7})'
+    multi_line_matches = re.findall(multi_line_address_pattern, text, re.IGNORECASE | re.DOTALL)
+    if multi_line_matches:
+        # Return the longest match
+        longest_addr = max(multi_line_matches, key=len)
+        return re.sub(r'\s+', ' ', longest_addr.strip())
     
     # If specific patterns don't work, look for Indian city/state patterns
     indian_cities_states = r'(?:mumbai|delhi|bangalore|kolkata|chennai|hyderabad|pune|ahmedabad|jaipur|lucknow|patna|bhopal|chandigarh|nagpur|indore|thane|bhubaneswar|vadodara|nashik|agra|kanpur|noida|gurgaon|faridabad|meerut|varanasi|allahabad|amritsar|srinagar|jodhpur|raipur|vizag|coimbatore|mysore|ludhiana|aurangabad|gwalior|jalandhar|madurai|thane|mira bhayandar|kalyan|dombivli|bareilly|jammu|gulbarga|dhanbad|hubli|rohtak|kollam|thiruvananthapuram|kochi|kozhikode|tiruchirappalli|salem|warangal|guntur|vijayawada|rajahmundry|tiruppur|davanagere|bikaner|kakinada|nellore|bijapur|kota|tumkur|kharagpur|bhatpara|kulti|kamarhati|durgapur|siliguri|berhampur|rourkela|baharampur|mathura|amravati|nanded|nandyal|khammam|mahbubnagar|raichur|adoni|tadepalligudem|tirunelveli|danapur|bally|ahmednagar|cuddalore|tiruvannamalai|chittoor|karnal|bhagalpur|tirupati|saharanpur|eluru|bhavnagar|maharashtra|tamil nadu|karnataka|kerala|telangana|andhra pradesh|uttar pradesh|madhya pradesh|rajasthan|west bengal|bihar|gujarat|jharkhand|odisha|assam|haryana|punjab|himachal pradesh|uttarakhand|chhattisgarh|jammu and kashmir|ladakh|andaman and nicobar|dadra and nagar haveli|daman and diu|lakshadweep|puducherry)'
     
     # Look for text blocks that contain Indian locations
-    paragraphs = text.split('\n')
+    paragraphs = text.split('\n\n')  # Split by double newlines for better paragraph detection
     for para in paragraphs:
-        if re.search(indian_cities_states, para, re.IGNORECASE):
-            return para.strip()
+        if re.search(indian_cities_states, para, re.IGNORECASE) and len(para) > 20:
+            return re.sub(r'\s+', ' ', para.strip())
     
     # Look for blocks that might be addresses (contain numbers and Indian location indicators)
-    potential_addresses = re.findall(r'([A-Za-z0-9\s,.#\-\n]{20,})', text)
+    potential_addresses = re.findall(r'([A-Za-z0-9\s,.#\-\n\r]{20,})', text, re.DOTALL)
     for addr in potential_addresses:
-        if re.search(indian_cities_states, addr, re.IGNORECASE) or len(re.findall(r'\d+', addr)) > 0:
-            return addr.strip()
+        if (re.search(indian_cities_states, addr, re.IGNORECASE) or len(re.findall(r'\d+', addr)) >= 2) and len(addr.split()) > 5:
+            return re.sub(r'\s+', ' ', addr.strip())
     
     return ""
 
