@@ -351,7 +351,67 @@ button:active {
     border-left-color: #2196F3;
     color: #1565C0;
 }
-
+    
+.doctype-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 25px;
+    justify-content: center;
+    margin-top: 30px;
+}
+    
+.doctype-option {
+    border: 2px solid #e6eef6;
+    border-radius: 16px;
+    padding: 30px;
+    width: 280px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    background: white;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+    opacity: 0;
+    transform: scale(0.95);
+    animation: popIn 0.5s ease forwards;
+    position: relative;
+    overflow: hidden;
+}
+    
+.doctype-option:nth-child(1) { animation-delay: 0.1s; }
+.doctype-option:nth-child(2) { animation-delay: 0.2s; }
+.doctype-option:nth-child(3) { animation-delay: 0.3s; }
+    
+.doctype-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+}
+    
+.doctype-option:hover {
+    border-color: #2c6fb7;
+    background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(44, 111, 183, 0.15);
+}
+    
+.doctype-option:active {
+    transform: translateY(-2px);
+}
+    
+.doctype-option h3 {
+    color: #1a4a8a;
+    font-size: 1.4rem;
+    margin: 15px 0 10px 0;
+    font-weight: 600;
+}
+    
+.doctype-option p {
+    color: #5a6e82;
+    font-size: 1rem;
+    margin: 0;
+    line-height: 1.5;
+}
+    
 .form-option {
     border: 2px solid #e6eef6;
     border-radius: 16px;
@@ -602,7 +662,73 @@ button:active {
     margin-top: 20px;
     text-align: center;
 }
-
+    
+.gov-forms-container {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 25px;
+    margin: 30px 0;
+}
+    
+.gov-form-link {
+    border: 2px solid #e6eef6;
+    border-radius: 16px;
+    padding: 25px;
+    text-align: center;
+    cursor: pointer;
+    transition: all 0.4s ease;
+    background: white;
+    box-shadow: 0 6px 15px rgba(0,0,0,0.06);
+    opacity: 0;
+    transform: scale(0.95);
+    animation: popIn 0.5s ease forwards;
+    position: relative;
+    overflow: hidden;
+}
+    
+.gov-form-link:nth-child(1) { animation-delay: 0.1s; }
+.gov-form-link:nth-child(2) { animation-delay: 0.2s; }
+.gov-form-link:nth-child(3) { animation-delay: 0.3s; }
+.gov-form-link:nth-child(4) { animation-delay: 0.4s; }
+.gov-form-link:nth-child(5) { animation-delay: 0.5s; }
+.gov-form-link:nth-child(6) { animation-delay: 0.6s; }
+    
+.form-icon {
+    font-size: 48px;
+    margin-bottom: 15px;
+    display: block;
+}
+    
+.gov-form-link:hover {
+    border-color: #2c6fb7;
+    background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+    transform: translateY(-5px);
+    box-shadow: 0 12px 25px rgba(44, 111, 183, 0.15);
+}
+    
+.gov-form-link:active {
+    transform: translateY(-2px);
+}
+    
+.gov-form-link h3 {
+    color: #1a4a8a;
+    font-size: 1.3rem;
+    margin: 15px 0 10px 0;
+    font-weight: 600;
+}
+    
+.gov-form-link p {
+    color: #5a6e82;
+    font-size: 0.95rem;
+    margin: 0;
+    line-height: 1.5;
+}
+    
+#gov-form-controls {
+    text-align: center;
+    margin-top: 30px;
+}
+    
 @media (max-width: 768px) {
     .container {
         padding: 10px;
