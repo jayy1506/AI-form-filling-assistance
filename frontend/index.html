@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI-Powered Form Filling Assistant</title>
+    <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div class="header-top">
+                <div class="language-selector">
+                    <label for="language-select">Language:</label>
+                    <select id="language-select">
+                        <option value="en">English</option>
+                        <option value="hi">हिंदी (Hindi)</option>
+                        <option value="mr">मराठी (Marathi)</option>
+                    </select>
+                </div>
+                <div class="tts-controls">
+                    <button id="tts-btn" title="Text-to-Speech">
+                        <span class="tts-icon">🔊</span> Read Aloud
+                    </button>
+                </div>
+            </div>
+            <h1>AI-Powered Form Filling Assistant</h1>
+            <p>For Indian Seva Kendras - Simple & Easy to Use</p>
+        </header>
+        
+        <main>
+            <!-- Document Upload Section -->
+            <section id="upload-section" class="section">
+                <h2 id="upload-title">Upload Your Document</h2>
+                <div class="upload-area" id="upload-area">
+                    <p id="upload-desc">Please select your government document (Aadhaar, PAN, Voter ID, etc.)</p>
+                    <input type="file" id="document-upload" accept=".pdf,.jpg,.jpeg,.png" multiple>
+                    <button id="upload-btn">Select Document</button>
+                </div>
+                <button id="process-btn">Process Document & Extract Information</button>
+                <div id="upload-status" class="status"></div>
+            </section>
+            
+            <!-- Document Processing Section -->
+            <section id="processing-section" class="section hidden">
+                <h2 id="processing-title">We are processing your document</h2>
+                <div id="processing-content">
+                    <p id="processing-desc">Please wait while we extract information from your document...</p>
+                    <button id="extract-btn">Extract Information from Document</button>
+                    <div id="extraction-status" class="status"></div>
+                </div>
+            </section>
+            
+            <!-- Entity Review Section -->
+            <section id="review-section" class="section hidden">
+                <h2 id="review-title">Please review the information we extracted</h2>
+                <p id="review-desc">If any information is incorrect, please click 'Edit Information' to make changes</p>
+                <div id="entities-container">
+                    <div id="entities-display"></div>
+                    <div id="edit-controls">
+                        <button id="edit-entities-btn">Edit Information if Needed</button>
+                        <button id="continue-btn">Continue to Form</button>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Form Selection Section -->
+            <section id="form-section" class="section hidden">
+                <h2 id="form-select-title">Please select the form you want to fill</h2>
+                <div id="form-selection">
+                    <div class="form-option" data-form="income_certificate">
+                        <h3>Income Certificate</h3>
+                        <p>Apply for income certificate for various purposes (e.g. loan, scholarship)</p>
+                    </div>
+                    <div class="form-option" data-form="birth_certificate">
+                        <h3>Birth Certificate</h3>
+                        <p>Apply for birth certificate or duplicate (for school admission, etc.)</p>
+                    </div>
+                    <div class="form-option" data-form="ration_card">
+                        <h3>Ration Card</h3>
+                        <p>Apply for ration card or update details for food supplies</p>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Form Filling Section -->
+            <section id="fill-section" class="section hidden">
+                <h2 id="form-title">Fill Your Form</h2>
+                <p id="form-desc">Please check all information below. You can make changes if needed.</p>
+                <div id="form-container">
+                    <div id="form-fields"></div>
+                    <div id="form-controls">
+                        <button id="generate-pdf-btn">Create Final PDF</button>
+                    </div>
+                </div>
+            </section>
+            
+
+        </main>
+    </div>
+    
+    <script src="/static/app.js"></script>
+</body>
+</html>

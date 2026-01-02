@@ -1,0 +1,148 @@
+{
+  "form_type": "income_certificate",
+  "title": "Income Certificate",
+  "description": "Application for Income Certificate for various government schemes and benefits",
+  "department": "Revenue Department",
+  "fields": [
+    {
+      "name": "applicant_name",
+      "label": "Full Name of Applicant",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter your full name as per documents",
+      "validation": "required"
+    },
+    {
+      "name": "father_or_husband_name",
+      "label": "Father's / Husband's Name",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter father's or husband's name",
+      "validation": "required"
+    },
+    {
+      "name": "date_of_birth",
+      "label": "Date of Birth",
+      "type": "text",
+      "required": false,
+      "placeholder": "DD/MM/YYYY",
+      "validation": "date"
+    },
+    {
+      "name": "gender",
+      "label": "Gender",
+      "type": "select",
+      "required": false,
+      "options": ["Male", "Female", "Other"],
+      "placeholder": "Select gender",
+      "validation": "optional"
+    },
+    {
+      "name": "permanent_address",
+      "label": "Permanent Address",
+      "type": "textarea",
+      "required": true,
+      "placeholder": "Enter complete permanent address",
+      "validation": "required"
+    },
+    {
+      "name": "aadhaar_number",
+      "label": "Aadhaar Number",
+      "type": "text",
+      "required": false,
+      "placeholder": "Enter 12-digit Aadhaar number",
+      "validation": "aadhaar"
+    },
+    {
+      "name": "financial_year",
+      "label": "Financial Year",
+      "type": "text",
+      "required": true,
+      "placeholder": "e.g., 2023-24",
+      "validation": "required"
+    },
+    {
+      "name": "annual_income",
+      "label": "Annual Income (in INR)",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter annual income in figures and words",
+      "validation": "required"
+    },
+    {
+      "name": "occupation",
+      "label": "Occupation",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter current occupation",
+      "validation": "required"
+    },
+    {
+      "name": "religion",
+      "label": "Religion",
+      "type": "text",
+      "required": false,
+      "placeholder": "Enter religion (for reserved categories)",
+      "validation": "optional"
+    },
+    {
+      "name": "category",
+      "label": "Category",
+      "type": "select",
+      "required": false,
+      "options": ["General", "SC", "ST", "OBC", "EWS", "Other"],
+      "placeholder": "Select category",
+      "validation": "optional"
+    },
+    {
+      "name": "mobile_number",
+      "label": "Mobile Number",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter 10-digit mobile number",
+      "validation": "mobile"
+    },
+    {
+      "name": "email",
+      "label": "Email Address",
+      "type": "email",
+      "required": false,
+      "placeholder": "Enter valid email address",
+      "validation": "email"
+    },
+    {
+      "name": "signature",
+      "label": "Applicant's Signature",
+      "type": "signature",
+      "required": true,
+      "validation": "required"
+    },
+    {
+      "name": "date",
+      "label": "Date of Application",
+      "type": "date",
+      "required": true,
+      "validation": "required"
+    },
+    {
+      "name": "place",
+      "label": "Place",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter place of application",
+      "validation": "required"
+    }
+  ],
+  "instructions": [
+    "All fields marked with * are mandatory",
+    "Provide authentic information as per your documents",
+    "Attach required documents as mentioned in the checklist",
+    "Submit with proper signature and date"
+  ],
+  "required_documents": [
+    "Aadhaar Card (Aadhaar number)",
+    "Address Proof",
+    "Income Proof (if available)",
+    "Passport Size Photo"
+  ]
+}

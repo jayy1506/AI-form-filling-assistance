@@ -1,0 +1,179 @@
+{
+  "form_type": "ration_card",
+  "title": "Ration Card Application",
+  "description": "Application for new Ration Card or update of existing Ration Card details",
+  "department": "Food and Civil Supplies Department",
+  "fields": [
+    {
+      "name": "head_of_family",
+      "label": "Head of Family",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter name of head of family",
+      "validation": "required"
+    },
+    {
+      "name": "father_or_husband_name",
+      "label": "Father's / Husband's Name",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter father's or husband's name",
+      "validation": "required"
+    },
+    {
+      "name": "date_of_birth",
+      "label": "Date of Birth",
+      "type": "text",
+      "required": false,
+      "placeholder": "DD/MM/YYYY",
+      "validation": "date"
+    },
+    {
+      "name": "gender",
+      "label": "Gender",
+      "type": "select",
+      "required": false,
+      "options": ["Male", "Female", "Other"],
+      "placeholder": "Select gender",
+      "validation": "optional"
+    },
+    {
+      "name": "address",
+      "label": "Complete Address",
+      "type": "textarea",
+      "required": true,
+      "placeholder": "Enter complete residential address",
+      "validation": "required"
+    },
+    {
+      "name": "aadhaar_number",
+      "label": "Aadhaar Number",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter 12-digit Aadhaar number",
+      "validation": "aadhaar"
+    },
+    {
+      "name": "ration_card_number",
+      "label": "Existing Ration Card Number (if any)",
+      "type": "text",
+      "required": false,
+      "placeholder": "Enter existing ration card number if applicable",
+      "validation": "optional"
+    },
+    {
+      "name": "card_type",
+      "label": "Type of Ration Card",
+      "type": "select",
+      "required": true,
+      "options": [
+        "Antyodaya Anna Yojana (AAY)",
+        "Priority Household (PHH)",
+        "Non-Priority Household"
+      ],
+      "placeholder": "Select ration card type",
+      "validation": "required"
+    },
+    {
+      "name": "family_members",
+      "label": "Family Members Details",
+      "type": "textarea",
+      "required": true,
+      "placeholder": "Enter details of all family members (Name, Age, Gender)",
+      "validation": "required"
+    },
+    {
+      "name": "total_family_members",
+      "label": "Total Number of Family Members",
+      "type": "number",
+      "required": true,
+      "placeholder": "Enter total count",
+      "validation": "number"
+    },
+    {
+      "name": "mobile_number",
+      "label": "Mobile Number",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter 10-digit mobile number",
+      "validation": "mobile"
+    },
+    {
+      "name": "email",
+      "label": "Email Address",
+      "type": "email",
+      "required": false,
+      "placeholder": "Enter valid email address",
+      "validation": "email"
+    },
+    {
+      "name": "occupation",
+      "label": "Occupation of Head of Family",
+      "type": "text",
+      "required": false,
+      "placeholder": "Enter occupation",
+      "validation": "optional"
+    },
+    {
+      "name": "annual_income",
+      "label": "Annual Family Income",
+      "type": "text",
+      "required": false,
+      "placeholder": "Enter annual income in INR",
+      "validation": "optional"
+    },
+    {
+      "name": "religion",
+      "label": "Religion",
+      "type": "text",
+      "required": false,
+      "placeholder": "Enter religion",
+      "validation": "optional"
+    },
+    {
+      "name": "category",
+      "label": "Category",
+      "type": "select",
+      "required": false,
+      "options": ["General", "SC", "ST", "OBC", "EWS", "Other"],
+      "placeholder": "Select category",
+      "validation": "optional"
+    },
+    {
+      "name": "signature",
+      "label": "Applicant's Signature",
+      "type": "signature",
+      "required": true,
+      "validation": "required"
+    },
+    {
+      "name": "date",
+      "label": "Date of Application",
+      "type": "date",
+      "required": true,
+      "validation": "required"
+    },
+    {
+      "name": "place",
+      "label": "Place",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter place of application",
+      "validation": "required"
+    }
+  ],
+  "instructions": [
+    "All fields marked with * are mandatory",
+    "Provide authentic information as per your documents",
+    "Attach required documents as mentioned in the checklist",
+    "Submit with proper signature and date"
+  ],
+  "required_documents": [
+    "Aadhaar Card (for all family members)",
+    "Address Proof",
+    "Income Certificate (if applicable)",
+    "Caste Certificate (if applicable)",
+    "Passport Size Photos (2 for new card, 1 for update)",
+    "Bank Passbook (first page copy)"
+  ]
+}

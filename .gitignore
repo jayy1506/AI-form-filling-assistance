@@ -1,0 +1,55 @@
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+ENV/
+.venv/
+.env
+.pytest_cache/
+.coverage
+htmlcov/
+.vscode/
+.idea/
+*.log
+temp/
+backend/temp/
+*.tmp
+.DS_Store
+Thumbs.db
+node_modules/
+dist/
+build/
+*.zip
+*.rar
+.vs/
+.vscode/settings.json
+*.swp
+*.swo
+*~
+.DS_Store
+desktop.ini
+$RECYCLE.BIN/
+System Volume Information/
+Thumbs.db
+ehthumbs.db
+
+# Tesseract OCR files
+Tesseract-OCR/
+
+# Ignore any .exe files
+*.exe
+
+# Ignore large binary files
+*.dll
+*.jar
+*.traineddata
+*.ttf
+
+# Ignore temporary image files
+*.jpg
+*.jpeg
+*.png
+*.pdf

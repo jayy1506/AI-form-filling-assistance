@@ -1,0 +1,172 @@
+{
+  "form_type": "birth_certificate",
+  "title": "Birth Certificate Application",
+  "description": "Application for Birth Certificate or duplicate certificate",
+  "department": "Municipal Corporation / Revenue Department",
+  "fields": [
+    {
+      "name": "person_name",
+      "label": "Full Name of Person",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter full name as per birth record",
+      "validation": "required"
+    },
+    {
+      "name": "date_of_birth",
+      "label": "Date of Birth",
+      "type": "text",
+      "required": true,
+      "placeholder": "DD/MM/YYYY",
+      "validation": "date"
+    },
+    {
+      "name": "place_of_birth",
+      "label": "Place of Birth",
+      "type": "text",
+      "required": true,
+      "placeholder": "City/Village, State",
+      "validation": "required"
+    },
+    {
+      "name": "gender",
+      "label": "Gender",
+      "type": "select",
+      "required": true,
+      "options": ["Male", "Female", "Other"],
+      "placeholder": "Select gender",
+      "validation": "required"
+    },
+    {
+      "name": "father_name",
+      "label": "Father's Name",
+      "type": "text",
+      "required": false,
+      "placeholder": "Enter father's full name",
+      "validation": "optional"
+    },
+    {
+      "name": "mother_name",
+      "label": "Mother's Name",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter mother's full name",
+      "validation": "required"
+    },
+    {
+      "name": "present_address",
+      "label": "Present Address",
+      "type": "textarea",
+      "required": true,
+      "placeholder": "Enter current residential address",
+      "validation": "required"
+    },
+    {
+      "name": "permanent_address",
+      "label": "Permanent Address",
+      "type": "textarea",
+      "required": false,
+      "placeholder": "Enter permanent address if different",
+      "validation": "optional"
+    },
+    {
+      "name": "aadhaar_number",
+      "label": "Aadhaar Number",
+      "type": "text",
+      "required": false,
+      "placeholder": "Enter 12-digit Aadhaar number",
+      "validation": "aadhaar"
+    },
+    {
+      "name": "ration_card_number",
+      "label": "Ration Card Number",
+      "type": "text",
+      "required": false,
+      "placeholder": "Enter ration card number if available",
+      "validation": "optional"
+    },
+    {
+      "name": "applicant_name",
+      "label": "Applicant's Name",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter name of person applying",
+      "validation": "required"
+    },
+    {
+      "name": "applicant_relation",
+      "label": "Relationship to Person",
+      "type": "select",
+      "required": true,
+      "options": ["Self", "Father", "Mother", "Guardian", "Other"],
+      "placeholder": "Select relationship",
+      "validation": "required"
+    },
+    {
+      "name": "applicant_address",
+      "label": "Applicant's Address",
+      "type": "textarea",
+      "required": true,
+      "placeholder": "Enter applicant's address",
+      "validation": "required"
+    },
+    {
+      "name": "mobile_number",
+      "label": "Mobile Number",
+      "type": "text",
+      "required": true,
+      "placeholder": "Enter 10-digit mobile number",
+      "validation": "mobile"
+    },
+    {
+      "name": "email",
+      "label": "Email Address",
+      "type": "email",
+      "required": false,
+      "placeholder": "Enter valid email address",
+      "validation": "email"
+    },
+    {
+      "name": "application_date",
+      "label": "Date of Application",
+      "type": "date",
+      "required": true,
+      "validation": "required"
+    },
+    {
+      "name": "purpose",
+      "label": "Purpose of Certificate",
+      "type": "select",
+      "required": true,
+      "options": [
+        "General Use",
+        "School Admission",
+        "Passport Application",
+        "Identity Proof",
+        "Other"
+      ],
+      "placeholder": "Select purpose",
+      "validation": "required"
+    },
+    {
+      "name": "signature",
+      "label": "Applicant's Signature",
+      "type": "signature",
+      "required": true,
+      "validation": "required"
+    }
+  ],
+  "instructions": [
+    "All fields marked with * are mandatory",
+    "Provide authentic information as per birth records",
+    "Attach required documents as mentioned in the checklist",
+    "Submit with proper signature and date"
+  ],
+  "required_documents": [
+    "Hospital Birth Record",
+    "Parent's ID Proof (Aadhaar, Voter ID, etc.)",
+    "Address Proof",
+    "Early School Certificate (if available)",
+    "Ration Card (if available)"
+  ]
+}
