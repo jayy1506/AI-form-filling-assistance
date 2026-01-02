@@ -4,6 +4,13 @@
     box-sizing: border-box;
 }
 
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+}
+
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     background: linear-gradient(135deg, #f0f4f8 0%, #d9e2ec 100%);
@@ -14,13 +21,16 @@ body {
     min-height: 100vh;
     background-attachment: fixed;
     font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+    font-size: 18px; /* Increased base font size */
 }
 
 .container {
-    max-width: 1200px;
-    margin: 0 auto;
+    max-width: 100%;
+    width: 100%;
+    margin: 0;
     padding: 20px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    box-sizing: border-box;
 }
 
 header {
@@ -44,14 +54,14 @@ header:hover {
 }
 
 header h1 {
-    font-size: 2.5rem;
+    font-size: 3rem;
     margin-bottom: 10px;
     font-weight: 700;
     text-shadow: 0 2px 4px rgba(0,0,0,0.2);
 }
 
 header p {
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     opacity: 0.9;
     font-weight: 400;
 }
@@ -164,7 +174,7 @@ header p {
 
 .section h2 {
     color: #1a4a8a;
-    font-size: 1.8rem;
+    font-size: 2.2rem;
     margin-bottom: 20px;
     font-weight: 600;
     position: relative;
@@ -262,10 +272,10 @@ button {
     background: linear-gradient(135deg, #2c6fb7 0%, #1a4a8a 100%);
     color: white;
     border: none;
-    padding: 15px 30px;
+    padding: 18px 35px;
     border-radius: 12px;
     cursor: pointer;
-    font-size: 1rem;
+    font-size: 1.3rem;
     margin: 8px;
     transition: all 0.3s ease;
     box-shadow: 0 6px 15px rgba(44, 111, 183, 0.3);
@@ -275,6 +285,7 @@ button {
     overflow: hidden;
     z-index: 1;
     text-transform: capitalize;
+    min-height: 50px; /* Ensure buttons are large enough */
 }
 
 button::before {
@@ -306,8 +317,8 @@ button:active {
 
 #tts-btn {
     background: linear-gradient(135deg, #4CAF50 0%, #2E7D32 100%);
-    padding: 10px 18px;
-    font-size: 14px;
+    padding: 15px 22px;
+    font-size: 1.3rem;
     display: flex;
     align-items: center;
     gap: 8px;
@@ -323,14 +334,14 @@ button:active {
 
 .status {
     margin-top: 20px;
-    padding: 18px;
+    padding: 22px;
     border-radius: 12px;
     background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%);
     color: #1a4a8a;
     border-left: 5px solid #2c6fb7;
     box-shadow: 0 4px 12px rgba(44, 111, 183, 0.1);
     transition: all 0.3s ease;
-    font-size: 1rem;
+    font-size: 1.3rem;
     line-height: 1.5;
 }
 
@@ -400,14 +411,14 @@ button:active {
     
 .doctype-option h3 {
     color: #1a4a8a;
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     margin: 15px 0 10px 0;
     font-weight: 600;
 }
-    
+
 .doctype-option p {
     color: #5a6e82;
-    font-size: 1rem;
+    font-size: 1.3rem;
     margin: 0;
     line-height: 1.5;
 }
@@ -465,14 +476,14 @@ button:active {
 
 .form-option h3 {
     color: #1a4a8a;
-    font-size: 1.4rem;
+    font-size: 1.7rem;
     margin-bottom: 12px;
     font-weight: 600;
 }
 
 .form-option p {
     color: #5a6e82;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     margin: 0;
     line-height: 1.5;
 }
@@ -528,17 +539,17 @@ button:active {
     color: #555;
     display: block;
     margin-bottom: 5px;
-    font-size: 1.2rem;
+    font-size: 1.4rem;
 }
 
 .entity-value {
     color: #333;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     font-weight: 500;
 }
 
 .entity-confidence {
-    font-size: 0.8rem;
+    font-size: 1.1rem;
     color: #777;
     margin-top: 3px;
 }
@@ -561,10 +572,10 @@ button:active {
 .form-field input,
 .form-field textarea {
     width: 100%;
-    padding: 14px;
+    padding: 16px;
     border: 2px solid #d0e0f0;
     border-radius: 10px;
-    font-size: 1rem;
+    font-size: 1.3rem;
     transition: all 0.3s ease;
     background-color: #ffffff;
     box-shadow: inset 0 2px 4px rgba(0,0,0,0.05);
@@ -583,7 +594,7 @@ button:active {
     margin-bottom: 8px;
     font-weight: 600;
     color: #1a4a8a;
-    font-size: 1.1rem;
+    font-size: 1.4rem;
 }
 
 .form-field textarea {
@@ -714,14 +725,14 @@ button:active {
     
 .gov-form-link h3 {
     color: #1a4a8a;
-    font-size: 1.3rem;
+    font-size: 1.6rem;
     margin: 15px 0 10px 0;
     font-weight: 600;
 }
-    
+
 .gov-form-link p {
     color: #5a6e82;
-    font-size: 0.95rem;
+    font-size: 1.2rem;
     margin: 0;
     line-height: 1.5;
 }
