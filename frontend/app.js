@@ -1,5 +1,6 @@
 // Global variables
 let currentDocumentId = null;
+let currentDocumentType = null;
 let extractedEntities = {};
 let currentFormType = null;
 let filledFormData = {};
@@ -111,7 +112,29 @@ const translations = {
         'aadhaar': 'Aadhaar Number',
         'pan': 'PAN Number',
         'voter_id': 'Voter ID',
-        'parent_name': 'Parent/Guardian Name'
+        'parent_name': 'Parent/Guardian Name',
+        'select_document_type': 'Select Document Type',
+        'aadhaar_card': 'Aadhaar Card',
+        'pan_card': 'PAN Card',
+        'voter_id': 'Voter ID',
+        'upload_aadhaar': 'Upload your Aadhaar card for identity verification',
+        'upload_pan': 'Upload your PAN card for tax identification',
+        'upload_voter': 'Upload your Voter ID for electoral identification',
+        'gov_forms_title': 'Important Government Forms',
+        'gov_forms_desc': 'Quick access to important forms for elderly citizens',
+        'pension_application': 'Pension Application',
+        'pension_desc': 'Apply for various pension schemes',
+        'healthcare_forms': 'Healthcare Forms',
+        'healthcare_desc': 'Medical and health insurance forms',
+        'ration_card': 'Ration Card',
+        'ration_desc': 'Apply or update your ration card details',
+        'voter_id': 'Voter ID',
+        'voter_desc': 'Apply for voter ID or update details',
+        'aadhaar_services': 'Aadhaar Services',
+        'aadhaar_desc': 'Update or verify your Aadhaar details',
+        'banking_forms': 'Banking Forms',
+        'banking_desc': 'Senior citizen banking services',
+        'back_to_form': 'Back to Form'
     },
     'hi': {
         'upload_document': 'दस्तावेज़ अपलोड करें',
@@ -176,7 +199,29 @@ const translations = {
         'aadhaar': 'आधार क्रमांक',
         'pan': 'पैन क्रमांक',
         'voter_id': 'मतदाता पहचान पत्र',
-        'parent_name': 'माता-पिता / अभिभावक का नाम'
+        'parent_name': 'माता-पिता / अभिभावक का नाम',
+        'select_document_type': 'दस्तावेज़ प्रकार चुनें',
+        'aadhaar_card': 'आधार कार्ड',
+        'pan_card': 'पैन कार्ड',
+        'voter_id': 'मतदाता पहचान पत्र',
+        'upload_aadhaar': 'पहचान सत्यापन के लिए अपना आधार कार्ड अपलोड करें',
+        'upload_pan': 'कर पहचान के लिए अपना पैन कार्ड अपलोड करें',
+        'upload_voter': 'निर्वाचन पहचान के लिए अपना मतदाता पहचान पत्र अपलोड करें',
+        'gov_forms_title': 'महत्वपूर्ण सरकारी फॉर्म',
+        'gov_forms_desc': 'बुजुर्ग नागरिकों के लिए महत्वपूर्ण फॉर्म का त्वरित उपयोग',
+        'pension_application': 'पेंशन आवेदन',
+        'pension_desc': 'विभिन्न पेंशन योजनाओं के लिए आवेदन करें',
+        'healthcare_forms': 'स्वास्थ्य देखभाल फॉर्म',
+        'healthcare_desc': 'चिकित्सा और स्वास्थ्य बीमा फॉर्म',
+        'ration_card': 'राशन कार्ड',
+        'ration_desc': 'अपना राशन कार्ड विवरण अपलोड या अद्यतन करें',
+        'voter_id': 'मतदाता पहचान पत्र',
+        'voter_desc': 'मतदाता पहचान पत्र के लिए आवेदन करें या विवरण अपडेट करें',
+        'aadhaar_services': 'आधार सेवाएं',
+        'aadhaar_desc': 'अपना आधार विवरण अपडेट या सत्यापित करें',
+        'banking_forms': 'बैंकिंग फॉर्म',
+        'banking_desc': 'वरिष्ठ नागरिक बैंकिंग सेवाएं',
+        'back_to_form': 'फॉर्म पर वापस जाएं'
     },
     'mr': {
         'upload_document': 'दस्तऐव अपलोड करा',
@@ -241,7 +286,29 @@ const translations = {
         'aadhaar': 'आधार क्रमांक',
         'pan': 'पॅन क्रमांक',
         'voter_id': 'मतदार ओळखपत्र',
-        'parent_name': 'पालक / प्रतिनिधीचे नाम'
+        'parent_name': 'पालक / प्रतिनिधीचे नाम',
+        'select_document_type': 'दस्तावेज प्रकार निवडा',
+        'aadhaar_card': 'आधार कार्ड',
+        'pan_card': 'पॅन कार्ड',
+        'voter_id': 'मतदार ओळखपत्र',
+        'upload_aadhaar': 'ओळख पुष्टीसाठी आधार कार्ड अपलोड करा',
+        'upload_pan': 'कर ओळखीसाठी पॅन कार्ड अपलोड करा',
+        'upload_voter': 'निवडणूक ओळखीसाठी मतदार ओळखपत्र अपलोड करा',
+        'gov_forms_title': 'महत्वाची सरकारी फॉर्म',
+        'gov_forms_desc': 'वृद्ध नागरिकांसाठी महत्वाच्या फॉर्मचा जलद प्रवेश',
+        'pension_application': 'पेन्शन अर्ज',
+        'pension_desc': 'विविध पेन्शन योजनांसाठी अर्ज करा',
+        'healthcare_forms': 'आरोग्य तपासणी फॉर्म',
+        'healthcare_desc': 'मेडिकल आणि आरोग्य विमा फॉर्म',
+        'ration_card': 'रेशन कार्ड',
+        'ration_desc': 'रेशन कार्ड तपशील अपलोड किंवा अद्यतनित करा',
+        'voter_id': 'मतदार ओळखपत्र',
+        'voter_desc': 'मतदार ओळखपत्रासाठी अर्ज करा किंवा तपशील अपडेट करा',
+        'aadhaar_services': 'आधार सेवा',
+        'aadhaar_desc': 'आपले आधार तपशील अपडेट किंवा सत्यापित करा',
+        'banking_forms': 'बँकिंग फॉर्म',
+        'banking_desc': 'ज्येष्ठ नागरिक बँकिंग सेवा',
+        'back_to_form': 'फॉर्मवर परत जा'
     }
 };
 
@@ -258,6 +325,15 @@ function translate(key) {
 
 // Update UI text based on selected language
 function updateUIText() {
+    // Update document type selection section
+    if (document.querySelector('#doctype-title')) document.querySelector('#doctype-title').textContent = translate('select_document_type');
+    if (document.querySelector('[data-type="aadhaar"] h3')) document.querySelector('[data-type="aadhaar"] h3').textContent = translate('aadhaar_card');
+    if (document.querySelector('[data-type="pan"] h3')) document.querySelector('[data-type="pan"] h3').textContent = translate('pan_card');
+    if (document.querySelector('[data-type="voter"] h3')) document.querySelector('[data-type="voter"] h3').textContent = translate('voter_id');
+    if (document.querySelector('[data-type="aadhaar"] p')) document.querySelector('[data-type="aadhaar"] p').textContent = translate('upload_aadhaar');
+    if (document.querySelector('[data-type="pan"] p')) document.querySelector('[data-type="pan"] p').textContent = translate('upload_pan');
+    if (document.querySelector('[data-type="voter"] p')) document.querySelector('[data-type="voter"] p').textContent = translate('upload_voter');
+    
     // Update button texts
     if (document.querySelector('#upload-btn')) document.querySelector('#upload-btn').textContent = translate('upload_document');
     if (document.querySelector('#extract-btn')) document.querySelector('#extract-btn').textContent = translate('extract_information');
@@ -294,6 +370,23 @@ function updateUIText() {
     
     // Update TTS button text
     if (document.querySelector('#tts-btn')) document.querySelector('#tts-btn').innerHTML = '<span class="tts-icon">🔊</span> ' + translate('read_aloud');
+    
+    // Update government forms section
+    if (document.querySelector('#gov-forms-title')) document.querySelector('#gov-forms-title').textContent = translate('gov_forms_title');
+    if (document.querySelector('#gov-forms-desc')) document.querySelector('#gov-forms-desc').textContent = translate('gov_forms_desc');
+    if (document.querySelector('[data-form="pension"] h3')) document.querySelector('[data-form="pension"] h3').textContent = translate('pension_application');
+    if (document.querySelector('[data-form="pension"] p')) document.querySelector('[data-form="pension"] p').textContent = translate('pension_desc');
+    if (document.querySelector('[data-form="health"] h3')) document.querySelector('[data-form="health"] h3').textContent = translate('healthcare_forms');
+    if (document.querySelector('[data-form="health"] p')) document.querySelector('[data-form="health"] p').textContent = translate('healthcare_desc');
+    if (document.querySelector('[data-form="ration"] h3')) document.querySelector('[data-form="ration"] h3').textContent = translate('ration_card');
+    if (document.querySelector('[data-form="ration"] p')) document.querySelector('[data-form="ration"] p').textContent = translate('ration_desc');
+    if (document.querySelector('[data-form="voter"] h3')) document.querySelector('[data-form="voter"] h3').textContent = translate('voter_id');
+    if (document.querySelector('[data-form="voter"] p')) document.querySelector('[data-form="voter"] p').textContent = translate('voter_desc');
+    if (document.querySelector('[data-form="aadhaar"] h3')) document.querySelector('[data-form="aadhaar"] h3').textContent = translate('aadhaar_services');
+    if (document.querySelector('[data-form="aadhaar"] p')) document.querySelector('[data-form="aadhaar"] p').textContent = translate('aadhaar_desc');
+    if (document.querySelector('[data-form="banking"] h3')) document.querySelector('[data-form="banking"] h3').textContent = translate('banking_forms');
+    if (document.querySelector('[data-form="banking"] p')) document.querySelector('[data-form="banking"] p').textContent = translate('banking_desc');
+    if (document.querySelector('#back-to-form-btn')) document.querySelector('#back-to-form-btn').textContent = translate('back_to_form');
 }
 
 // Text-to-speech function
@@ -382,6 +475,11 @@ function speakText(text) {
 
 // Event Listeners
 document.addEventListener('DOMContentLoaded', function() {
+    // Document type selection events
+    document.querySelectorAll('.doctype-option').forEach(option => {
+        option.addEventListener('click', () => selectDocumentType(option.dataset.type));
+    });
+    
     // Upload button event
     uploadBtn.addEventListener('click', handleDocumentUpload);
     
@@ -436,7 +534,66 @@ document.addEventListener('DOMContentLoaded', function() {
             speakText(pageText);
         }
     });
+    
+    // Government forms section events
+    document.querySelectorAll('.gov-form-link').forEach(link => {
+        link.addEventListener('click', () => handleGovFormSelection(link.dataset.form));
+    });
+    
+    // Back to form button event
+    document.getElementById('back-to-form-btn')?.addEventListener('click', () => {
+        document.querySelector('#gov-forms-section').classList.add('hidden');
+        document.querySelector('#fill-section').classList.remove('hidden');
+    });
 });
+
+// Select document type and show upload section
+function selectDocumentType(docType) {
+    // Store the selected document type for later use
+    currentDocumentType = docType;
+    
+    // Hide document type selection and show upload section
+    document.querySelector('#doctype-section').classList.add('hidden');
+    document.querySelector('#upload-section').classList.remove('hidden');
+    
+    // Update upload section based on document type
+    const uploadTitle = document.querySelector('#upload-title');
+    const uploadDesc = document.querySelector('#upload-desc');
+    
+    if (uploadTitle) {
+        uploadTitle.textContent = translate('upload_document');
+    }
+    
+    if (uploadDesc) {
+        switch(docType) {
+            case 'aadhaar':
+                uploadDesc.textContent = translate('upload_aadhaar');
+                break;
+            case 'pan':
+                uploadDesc.textContent = translate('upload_pan');
+                break;
+            case 'voter':
+                uploadDesc.textContent = translate('upload_voter');
+                break;
+            default:
+                uploadDesc.textContent = translate('upload_aadhaar_pan');
+        }
+    }
+}
+
+// Handle government form selection
+function handleGovFormSelection(formType) {
+    // This would normally redirect to the specific government form
+    // For now, we'll just show an alert with the selected form type
+    alert(`You selected: ${formType}. In a real implementation, this would redirect to the ${formType} form.`);
+    
+    // Or we could automatically fill the form with extracted data if available
+    // For example, pre-fill with the extracted entities
+    if (Object.keys(extractedEntities).length > 0) {
+        console.log('Pre-filling form with extracted data:', extractedEntities);
+        // In a real implementation, we would map the extracted entities to the specific form fields
+    }
+}
 
 // Get all visible text content from the page
 function getPageText() {
@@ -693,6 +850,26 @@ function enableEditEntities() {
 function showFormSelection() {
     reviewSection.classList.add('hidden');
     formSection.classList.remove('hidden');
+    
+    // Also provide access to government forms for elderly users
+    // We'll add a link to the government forms section
+    const govFormsLink = document.createElement('div');
+    govFormsLink.id = 'gov-forms-link';
+    govFormsLink.className = 'gov-forms-link';
+    govFormsLink.innerHTML = `<p>Or access <a href="#" id="gov-forms-quick-link">important government forms for elderly citizens</a></p>`;
+    
+    // Add the link after the form selection options
+    const formSelection = document.getElementById('form-selection');
+    if (formSelection && !document.getElementById('gov-forms-link')) {
+        formSelection.appendChild(govFormsLink);
+        
+        // Add event listener to the quick link
+        document.getElementById('gov-forms-quick-link')?.addEventListener('click', (e) => {
+            e.preventDefault();
+            formSection.classList.add('hidden');
+            document.querySelector('#gov-forms-section').classList.remove('hidden');
+        });
+    }
 }
 
 // Select form type

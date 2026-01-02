@@ -11,7 +11,7 @@
         <header>
             <div class="header-top">
                 <div class="language-selector">
-                    <label for="language-select">Language:</label>
+                    <label for="language-select">भाषा:</label>
                     <select id="language-select">
                         <option value="en">English</option>
                         <option value="hi">हिंदी (Hindi)</option>
@@ -29,8 +29,30 @@
         </header>
         
         <main>
+            <!-- Document Type Selection Section -->
+            <section id="doctype-section" class="section">
+                <h2 id="doctype-title">Select Document Type</h2>
+                <div class="doctype-container">
+                    <div class="doctype-option" data-type="aadhaar">
+                        <div class="doctype-icon">🪪</div>
+                        <h3>Aadhaar Card</h3>
+                        <p>Upload your Aadhaar card for identity verification</p>
+                    </div>
+                    <div class="doctype-option" data-type="pan">
+                        <div class="doctype-icon">💳</div>
+                        <h3>PAN Card</h3>
+                        <p>Upload your PAN card for tax identification</p>
+                    </div>
+                    <div class="doctype-option" data-type="voter">
+                        <div class="doctype-icon">🗳️</div>
+                        <h3>Voter ID</h3>
+                        <p>Upload your Voter ID for electoral identification</p>
+                    </div>
+                </div>
+            </section>
+            
             <!-- Document Upload Section -->
-            <section id="upload-section" class="section">
+            <section id="upload-section" class="section hidden">
                 <h2 id="upload-title">Upload Your Document</h2>
                 <div class="upload-area" id="upload-area">
                     <p id="upload-desc">Please select your government document (Aadhaar, PAN, Voter ID, etc.)</p>
@@ -92,6 +114,47 @@
                     <div id="form-controls">
                         <button id="generate-pdf-btn">Create Final PDF</button>
                     </div>
+                </div>
+            </section>
+            
+            <!-- Government Forms Section for Elderly -->
+            <section id="gov-forms-section" class="section hidden">
+                <h2 id="gov-forms-title">Important Government Forms</h2>
+                <p id="gov-forms-desc">Quick access to important forms for elderly citizens</p>
+                <div class="gov-forms-container">
+                    <div class="gov-form-link" data-form="pension">
+                        <div class="form-icon">💰</div>
+                        <h3>Pension Application</h3>
+                        <p>Apply for various pension schemes</p>
+                    </div>
+                    <div class="gov-form-link" data-form="health">
+                        <div class="form-icon">🏥</div>
+                        <h3>Healthcare Forms</h3>
+                        <p>Medical and health insurance forms</p>
+                    </div>
+                    <div class="gov-form-link" data-form="ration">
+                        <div class="form-icon">🛒</div>
+                        <h3>Ration Card</h3>
+                        <p>Apply or update your ration card details</p>
+                    </div>
+                    <div class="gov-form-link" data-form="voter">
+                        <div class="form-icon">🗳️</div>
+                        <h3>Voter ID</h3>
+                        <p>Apply for voter ID or update details</p>
+                    </div>
+                    <div class="gov-form-link" data-form="aadhaar">
+                        <div class="form-icon">🆔</div>
+                        <h3>Aadhaar Services</h3>
+                        <p>Update or verify your Aadhaar details</p>
+                    </div>
+                    <div class="gov-form-link" data-form="banking">
+                        <div class="form-icon">🏦</div>
+                        <h3>Banking Forms</h3>
+                        <p>Senior citizen banking services</p>
+                    </div>
+                </div>
+                <div id="gov-form-controls">
+                    <button id="back-to-form-btn">Back to Form</button>
                 </div>
             </section>
             
