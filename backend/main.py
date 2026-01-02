@@ -35,6 +35,7 @@ class DocumentUploadResponse(BaseModel):
 
 class ExtractionRequest(BaseModel):
     document_id: str
+    document_type: Optional[str] = None
 
 class ExtractionResponse(BaseModel):
     document_id: str
@@ -90,7 +91,8 @@ async def upload_document(file: UploadFile = File(...)):
             "file_path": file_path,
             "filename": file.filename,
             "file_type": file.content_type,
-            "upload_time": str(uuid.uuid4())  # Using this as a simple timestamp
+            "upload_time": str(uuid.uuid4()),  # Using this as a simple timestamp
+            "document_type": None  # Will be set later when user selects document type
         }
         
         return DocumentUploadResponse(
@@ -116,8 +118,14 @@ async def extract_information(request: ExtractionRequest):
         print(f"Extracted text length: {len(extracted_text)}")
         print(f"Extracted text preview: {extracted_text[:200]}...")
         
+        # Update document type if provided in request
+        if request.document_type:
+            document_storage[request.document_id]["document_type"] = request.document_type
+        
         # Extract entities from the text
-        entities = extract_entities_from_text(extracted_text)
+        # Get document type from storage if available
+        doc_type = document_storage.get(request.document_id, {}).get('document_type', None)
+        entities = extract_entities_from_text(extracted_text, doc_type)
         print(f"Extracted entities: {entities}")
         
         # Store extracted data

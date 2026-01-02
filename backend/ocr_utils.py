@@ -87,12 +87,13 @@ def extract_text_from_image(image_path: str) -> str:
         print(f"Error extracting text from image: {e}")
         return ""
 
-def extract_entities_from_text(text: str) -> Dict[str, Any]:
+def extract_entities_from_text(text: str, document_type: str = None) -> Dict[str, Any]:
     """
     Extract structured entities from text using rule-based and NLP approaches
     
     Args:
         text: Raw text to extract entities from
+        document_type: Type of document (aadhaar, pan, voter) to help with extraction
         
     Returns:
         Dictionary with extracted entities and confidence scores
@@ -161,10 +162,20 @@ def extract_entities_from_text(text: str) -> Dict[str, Any]:
         # Add empty aadhaar entry if not found
         entities["aadhaar"] = {"value": "", "confidence": 0.0}
     
-    # Extract PAN Number (always try to extract)
+    # Extract PAN Number (context-aware extraction)
     pan = extract_pan_number(clean_text)
     if pan:
-        entities["pan"] = {"value": pan, "confidence": calculate_confidence(pan, clean_text)}
+        # Adjust confidence based on document type
+        base_confidence = calculate_confidence(pan, clean_text)
+        if document_type == "pan":
+            # Higher confidence if we're processing a PAN card
+            entities["pan"] = {"value": pan, "confidence": min(0.95, base_confidence + 0.15)}
+        elif document_type == "aadhaar" or document_type == "voter":
+            # Lower confidence if we're processing other document types
+            entities["pan"] = {"value": pan, "confidence": max(0.3, base_confidence - 0.2)}
+        else:
+            # Default confidence
+            entities["pan"] = {"value": pan, "confidence": base_confidence}
     elif "pan" not in entities:
         # Add empty pan entry if not found
         entities["pan"] = {"value": "", "confidence": 0.0}
@@ -419,7 +430,32 @@ def extract_pan_number(text: str) -> str:
     matches = re.findall(pattern, text, re.IGNORECASE)
     
     if matches:
-        return matches[0].upper()
+        # Validate that this is actually a PAN by looking for PAN indicators in the text
+        pan_indicators = ["pan", "permanent account number", "pan card", "income tax"]
+        text_lower = text.lower()
+        has_pan_indicator = any(indicator in text_lower for indicator in pan_indicators)
+        
+        # If we found a potential PAN and there are PAN indicators in the text, return it
+        if has_pan_indicator:
+            return matches[0].upper()
+        # If no PAN indicators but we still found a pattern, check if it's in a context that suggests it's a PAN
+        else:
+            # Look for context around the potential PAN
+            for match in matches:
+                # Find the match in the text and check surrounding context
+                match_upper = match.upper()
+                text_upper = text.upper()
+                start_idx = text_upper.find(match_upper)
+                if start_idx != -1:
+                    # Get context around the match
+                    context_start = max(0, start_idx - 50)
+                    context_end = min(len(text_upper), start_idx + len(match_upper) + 50)
+                    context = text_upper[context_start:context_end]
+                    
+                    # Check if context contains PAN-related terms
+                    pan_context_indicators = ["pan", "card", "number", "income", "tax", "govt", "government"]
+                    if any(indicator.upper() in context for indicator in pan_context_indicators):
+                        return match_upper
     
     return ""
 

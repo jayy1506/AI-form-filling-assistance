@@ -706,7 +706,8 @@ async function handleInformationExtraction() {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify({
-                document_id: currentDocumentId
+                document_id: currentDocumentId,
+                document_type: currentDocumentType
             })
         });
         
