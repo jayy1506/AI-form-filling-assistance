@@ -232,6 +232,25 @@ header p {
     border-color: #d0e0f0;
 }
 
+.signature-upload-section {
+    margin: 30px 0;
+    padding: 20px;
+    border: 2px solid #e6eef6;
+    border-radius: 15px;
+    background: linear-gradient(135deg, #f8fbff 0%, #f0f7ff 100%);
+}
+
+.signature-upload-section h3 {
+    color: #1a4a8a;
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+#signature-upload-area {
+    padding: 30px;
+    margin: 15px 0;
+}
+
 .upload-area:hover {
     border-color: #2c6fb7;
     background: linear-gradient(135deg, #f0f8ff 0%, #e6f2ff 100%);

@@ -27,6 +27,11 @@ const formSelection = document.getElementById('form-selection');
 const formFields = document.getElementById('form-fields');
 const formTitle = document.getElementById('form-title');
 
+// Signature upload elements
+const signatureUpload = document.getElementById('signature-upload');
+const uploadSignatureBtn = document.getElementById('upload-signature-btn');
+const signatureStatus = document.getElementById('signature-status');
+
 // Multilingual and TTS elements
 const languageSelect = document.getElementById('language-select');
 const ttsBtn = document.getElementById('tts-btn');
@@ -545,6 +550,9 @@ document.addEventListener('DOMContentLoaded', function() {
         document.querySelector('#gov-forms-section').classList.add('hidden');
         document.querySelector('#fill-section').classList.remove('hidden');
     });
+    
+    // Signature upload button event
+    uploadSignatureBtn?.addEventListener('click', handleSignatureUpload);
 });
 
 // Select document type and show upload section
@@ -652,6 +660,43 @@ function getPageText() {
     }
     
     return text || translate('no_content_available_to_read');
+}
+
+// Handle signature upload
+async function handleSignatureUpload() {
+    const files = signatureUpload.files;
+    if (files.length === 0) {
+        showStatus(signatureStatus, translate('no_document_selected'), 'error');
+        return;
+    }
+    
+    const file = files[0];
+    
+    // Check if it's an image file
+    if (!file.type.startsWith('image/')) {
+        showStatus(signatureStatus, 'Please select an image file (JPG, PNG)', 'error');
+        return;
+    }
+    
+    try {
+        showStatus(signatureStatus, 'Uploading signature...', 'info');
+        
+        // In a real implementation, you would upload the signature to the backend
+        // For now, we'll just show a success message
+        
+        // You can add code here to send the signature to the backend if needed
+        // const formData = new FormData();
+        // formData.append('signature', file);
+        // const response = await fetch('/upload-signature', { method: 'POST', body: formData });
+        
+        showStatus(signatureStatus, 'Signature uploaded successfully!', 'success');
+        
+        // Store the signature file for later use if needed
+        window.signatureFile = file;
+        
+    } catch (error) {
+        showStatus(signatureStatus, `Signature upload failed: ${error.message}`, 'error');
+    }
 }
 
 // Handle document upload

@@ -59,6 +59,15 @@
                     <input type="file" id="document-upload" accept=".pdf,.jpg,.jpeg,.png" multiple>
                     <button id="upload-btn">Select Document</button>
                 </div>
+                <div class="signature-upload-section">
+                    <h3>Upload Signature (Optional)</h3>
+                    <div class="upload-area" id="signature-upload-area">
+                        <p>Upload your signature image (JPG, PNG)</p>
+                        <input type="file" id="signature-upload" accept=".jpg,.jpeg,.png">
+                        <button id="upload-signature-btn">Upload Signature</button>
+                    </div>
+                    <div id="signature-status" class="status"></div>
+                </div>
                 <button id="process-btn">Process Document & Extract Information</button>
                 <div id="upload-status" class="status"></div>
             </section>

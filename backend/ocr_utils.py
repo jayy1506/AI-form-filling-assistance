@@ -366,13 +366,13 @@ def extract_address(text: str) -> str:
     """Extract address"""
     # Look for address indicators
     address_indicators = [
-        r'address[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
-        r'permanent address[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
-        r'current address[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
-        r'residential address[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
-        r'addr[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
-        r'location[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
-        r'place[:\s]+([A-Za-z0-9\s,.-\n\r]+?)(?:\n|\r|$)',
+        r'address[:\s]+([A-Za-z0-9\s,\.\n\r\-]+?)(?:\n|\r|$)',
+        r'permanent address[:\s]+([A-Za-z0-9\s,\.\n\r\-]+?)(?:\n|\r|$)',
+        r'current address[:\s]+([A-Za-z0-9\s,\.\n\r\-]+?)(?:\n|\r|$)',
+        r'residential address[:\s]+([A-Za-z0-9\s,\.\n\r\-]+?)(?:\n|\r|$)',
+        r'addr[:\s]+([A-Za-z0-9\s,\.\n\r\-]+?)(?:\n|\r|$)',
+        r'location[:\s]+([A-Za-z0-9\s,\.\n\r\-]+?)(?:\n|\r|$)',
+        r'place[:\s]+([A-Za-z0-9\s,\.\n\r\-]+?)(?:\n|\r|$)',
     ]
     
     for pattern in address_indicators:
@@ -385,8 +385,8 @@ def extract_address(text: str) -> str:
     
     # Look for postal code patterns followed by addresses
     postal_patterns = [
-        r'(\d{6})[\s\n]+([A-Za-z\s,.-\n\r]+?)',  # 6-digit postal code followed by location
-        r'([A-Za-z\s,.-\n\r]+?)[\s\n]+(\d{6})',  # Location followed by 6-digit postal code
+        r'(\d{6})[\s\n]+([A-Za-z\s,\.\n\r\-]+?)',  # 6-digit postal code followed by location
+        r'([A-Za-z\s,\.\n\r\-]+?)[\s\n]+(\d{6})',  # Location followed by 6-digit postal code
     ]
     
     for pattern in postal_patterns:
@@ -404,7 +404,7 @@ def extract_address(text: str) -> str:
     
     # Look for complete address blocks that span multiple lines
     # Usually addresses have multiple components like house no, street, city, state, pin code
-    multi_line_address_pattern = r'([A-Za-z0-9\s,.-\n\r]{30,}?)(?:\n\s*\n|DOB|Date|Gender|Age|Name|Father|Mother|Wife|Husband|Income|Annual|Signature|\d{12}|[A-Z]{3}[0-9]{7})'
+    multi_line_address_pattern = r'([A-Za-z0-9\s,.\n\r\-]{30,}?)(?:\n\s*\n|DOB|Date|Gender|Age|Name|Father|Mother|Wife|Husband|Income|Annual|Signature|\d{12}|[A-Z]{3}[0-9]{7})'
     multi_line_matches = re.findall(multi_line_address_pattern, text, re.IGNORECASE | re.DOTALL)
     if multi_line_matches:
         # Return the longest match
@@ -421,7 +421,7 @@ def extract_address(text: str) -> str:
             return re.sub(r'\s+', ' ', para.strip())
     
     # Look for blocks that might be addresses (contain numbers and Indian location indicators)
-    potential_addresses = re.findall(r'([A-Za-z0-9\s,.#\-\n\r]{20,})', text, re.DOTALL)
+    potential_addresses = re.findall(r'([A-Za-z0-9\s,.#\n\r\-]{20,})', text, re.DOTALL)
     for addr in potential_addresses:
         if (re.search(indian_cities_states, addr, re.IGNORECASE) or len(re.findall(r'\d+', addr)) >= 2) and len(addr.split()) > 5:
             return re.sub(r'\s+', ' ', addr.strip())
@@ -563,7 +563,7 @@ def clean_extracted_text(text: str) -> str:
     
     # Remove extra whitespace and normalize
     import re
-    text = re.sub(r'\\s+', ' ', text)
+    text = re.sub(r'\s+', ' ', text)
     text = text.strip()
     
     # Fix common OCR errors
@@ -620,7 +620,7 @@ def detect_language(text: str) -> str:
     Detect language in text (basic implementation)
     """
     # Simple heuristic based on common Hindi/Indian language characters
-    hindi_chars = set('ँंःऄअआइईउऊऋऌएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसह़ािीुूृॄेैॉॊोौ्ॐ॒।॥')
+    hindi_chars = set(r'ँंःऄअआइईउऊऋऌएऐऑऒओऔकखगघङचछजझञटठडढणतथदधनऩपफबभमयरऱलळऴवशषसह़ािीुूृॄेैॉॊोौ्ॐ॒।॥')
     
     text_chars = set(text)
     common_hindi = hindi_chars.intersection(text_chars)
